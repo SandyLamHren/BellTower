@@ -1,0 +1,26 @@
+<resources>
+    <!-- activity 进出动画duration -->
+    <item name="base_anim_duration" format="integer" type="dimen">600</item>
+
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="shadow_width">15dp</dimen>
+    <dimen name="slidingmenu_offset">140dp</dimen>
+    <dimen name="login_dialog_width">80dp</dimen>
+
+
+    <!-- 文字大小 -->
+    <dimen name="font_num6">25sp</dimen>
+    <dimen name="font_num5">16sp</dimen>
+    <dimen name="font_num4">14sp</dimen>
+    <dimen name="font_num3">12sp</dimen>
+    <dimen name="font_num2">10sp</dimen>
+    <dimen name="font_num1">8sp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+</resources>

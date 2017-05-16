@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/left_drawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="left"
+    android:layout_marginRight="30dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/user_info"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.6"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        android:paddingLeft="20dp">
+
+        <ImageView
+            android:id="@+id/drawer_head_img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="45dp"
+            android:src="@drawable/photo" />
+
+
+        <TextView
+            android:id="@+id/drawer_info"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="郝仁\t\t201358505107"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/drawer_main"
+            style="@style/drawer_item"
+            android:checked="true"
+            android:drawableLeft="@drawable/drawer_item_icon1"
+            android:text="首页" />
+
+        <RadioButton
+            android:id="@+id/drawer_msg"
+            style="@style/drawer_item"
+            android:drawableLeft="@drawable/drawer_item_icon"
+            android:text="消息" />
+
+        <RadioButton
+            android:id="@+id/drawer_contact"
+            style="@style/drawer_item"
+            android:drawableLeft="@drawable/drawer_item_icon2"
+            android:text="联系人" />
+
+        <RadioButton
+            android:id="@+id/drawer_system"
+            style="@style/drawer_item"
+            android:drawableLeft="@drawable/drawer_item_icon6"
+            android:text="教务系统" />
+
+
+        <RadioButton
+            android:id="@+id/drawer_tools"
+            style="@style/drawer_item"
+            android:drawableLeft="@drawable/drawer_item_icon3"
+            android:text="更多功能" />
+
+        <RadioButton
+            android:id="@+id/drawer_about"
+            style="@style/drawer_item"
+            android:drawableLeft="@drawable/drawer_item_icon4"
+            android:text="关于" />
+    </RadioGroup>
+
+    <RadioButton
+        android:id="@+id/drawer_exit"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/transparent"
+        android:button="@null"
+        android:drawableLeft="@drawable/selector_exit"
+        android:drawablePadding="15dp"
+        android:paddingLeft="18dp"
+        android:text="退出登录"
+        android:textColor="@color/selector_leftmenu_exit" />
+
+</LinearLayout>
