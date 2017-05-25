@@ -19,15 +19,12 @@
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg1"
             android:fitsSystemWindows="true"
-            app:collapsedTitleTextAppearance="@style/col_title"
+            app:collapsedTitleTextAppearancea="@style/col_title"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginStart="120dp"
             app:expandedTitleTextAppearance="@style/exp_title"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="12312312">
-
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -46,12 +43,30 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_userinfo">
 
-        <TextView
-            android:id="@+id/tv_news_content"
+        <LinearLayout
             android:layout_width="match_parent"
+            android:padding="15dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/title"
+                android:ellipsize="marquee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:singleLine="true"
+                android:textColor="@color/black_txt"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="14sp" />
+        </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton

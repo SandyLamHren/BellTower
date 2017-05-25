@@ -22,10 +22,12 @@ import com.hh.belltower.adapter.MDPagerAdapter;
 import com.hh.belltower.base.DrawerActivity;
 import com.hh.belltower.bean.UserBean;
 import com.hh.belltower.constants.Constants;
-import com.hh.belltower.module.entrance.mInteractor.IMainInteractor;
-import com.hh.belltower.module.entrance.mPresenter.MainPresenter;
+import com.hh.belltower.module.mInteractor.IMainInteractor;
+import com.hh.belltower.module.mPresenter.MainPresenter;
 import com.hh.belltower.retrofit.base.API;
 import com.hh.belltower.ui.fragment.NewsFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +106,6 @@ public class MainActivity extends DrawerActivity implements IMainInteractor.View
         mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
     }
 
-
     /**
      * 初始化 setMaterialViewPagerListener
      */
@@ -156,4 +157,9 @@ public class MainActivity extends DrawerActivity implements IMainInteractor.View
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

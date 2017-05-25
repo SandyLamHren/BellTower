@@ -1,43 +1,45 @@
 package com.hh.belltower.ui.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
-import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 import com.haoren.belltower.R;
-import com.hh.belltower.adapter.CardRecyclerViewAdapter;
 import com.hh.belltower.base.BaseFragment;
-import com.hh.belltower.bean.NewsBean;
+import com.hh.belltower.bean.BaseEvent;
 import com.hh.belltower.constants.Constants;
-import com.hh.belltower.retrofit.base.BaseBean;
-import com.hh.belltower.retrofit.base.HttpDataListener;
-import com.hh.belltower.retrofit.base.MyHttpUtil;
-import com.hh.belltower.retrofit.base.MyRetrofit;
+import com.hh.belltower.module.mInteractor.INewsInteractor;
+import com.hh.belltower.module.mPresenter.NewsPresenter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 
 /**
  * 首页Tab 对应fragment
  */
-public class NewsFragment extends BaseFragment {
-
-    private static final boolean GRID_LAYOUT = false;
-    private static final int ITEM_COUNT = 100;
+public class NewsFragment extends BaseFragment implements INewsInteractor.View {
 
     @BindView(R.id.recyclerView)
-    RecyclerView mRecyclerView;
+    RecyclerView rv_news;
+
+    @BindView(R.id.swipe)
+    SwipeRefreshLayout swipe;
 
     private int page_index;
 
+    private NewsPresenter presenter;
+
+    private int page = 1;
+
+    private boolean isViesble = false;
+
+    private boolean isPrepared = false;
+
     @Override
     protected void handArguments(Bundle arguments) {
-        page_index= arguments.getInt(Constants.KEY_INDEX);
+        page_index = arguments.getInt(Constants.KEY_INDEX);
     }
 
     @Override
@@ -45,54 +47,53 @@ public class NewsFragment extends BaseFragment {
         return R.layout.fragment_recyclerview;
     }
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        isViesble = isVisibleToUser;
+        if (isVisibleToUser && isPrepared) {
+            presenter.getNews(page_index, page);
+        }
+    }
+
     @Override
     public void initData() {
-        getData();
-        initRecycler();
-        initViews();
+        presenter = new NewsPresenter(mActivity);
+        presenter.initRecycler(rv_news);
+        setBottomMore();
+        isPrepared = true;
+        if (page_index == 0) {
+            presenter.getNews(page_index, page);
+        }
+        swipe.setOnRefreshListener(() -> presenter.getNews(page_index, 1));
     }
 
     /**
-     * 获取列表数据
+     * 上滑加载更多
      */
-    private void getData() {
-        HashMap<String, String> parasm = new HashMap<>();
-        parasm.put("type", page_index+"");
-        MyHttpUtil.getInstance().with(mActivity)
-                .setObservable(MyRetrofit.getService().getNewList(parasm))
-                .setDataListener(new HttpDataListener<BaseBean<List<NewsBean>>> () {
-                    @Override
-                    public void onNext(BaseBean data) throws ClassNotFoundException {
-
+    private boolean isOnce = true;
+    private void setBottomMore() {
+        rv_news.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (!rv_news.canScrollVertically(1)) { //底部
+                    if (isOnce) {
+                        page++;
+                        presenter.getNews(page_index,page);
                     }
-                });
+                    isOnce = false;
+                }
+            }
+        });
     }
 
-    /**
-     * 初始化列表
-     */
-    private void initRecycler() {
-
-    }
-
-
-    private void initViews() {
-        final List<Object> items = new ArrayList<>();
-
-        for (int i = 0; i < ITEM_COUNT; ++i) {
-            items.add(new Object());
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(BaseEvent baseEvent) {
+        if (baseEvent.getCode() == BaseEvent.CANCLE_REFRESH) {
+            swipe.setRefreshing(false);
         }
-
-        if (GRID_LAYOUT) {
-            mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        } else {
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        }
-        mRecyclerView.setHasFixedSize(true);
-
-        //Use this now
-        mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
-        mRecyclerView.setAdapter(new CardRecyclerViewAdapter(items));
     }
+
 
 }

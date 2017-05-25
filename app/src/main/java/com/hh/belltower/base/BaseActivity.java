@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -16,6 +15,10 @@ import com.haoren.belltower.R;
 import com.hh.belltower.retrofit.base.MyHttpUtil;
 import com.hh.belltower.util.SoftInputUtils;
 import com.hh.belltower.util.StatusBarUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
+        EventBus.getDefault().register(this);
         mContext = getApplicationContext();
         mActivity = this;
         ButterKnife.bind(this);
@@ -65,26 +69,27 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 处理数据传递
      */
-    protected  void handIntent(Intent intent){
+    protected void handIntent(Intent intent) {
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void finish(String msg){
+    }
     /**
      * 点击外层 让edittext 失去焦点
      */
     private void initSoftInput() {
-        mRoot.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                mRoot.setFocusable(true);
-                mRoot.setFocusableInTouchMode(true);
+        mRoot.setOnTouchListener((v, event) -> {
+            mRoot.setFocusable(true);
+            mRoot.setFocusableInTouchMode(true);
 
-                mRoot.requestFocus();
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null) {
-                    imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
-                }
-                return false;
+            mRoot.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
             }
+            return false;
         });
     }
 
@@ -175,15 +180,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (MyHttpUtil.getInstance() != null) {
             MyHttpUtil.getInstance().cancelSubscribe();
         }
+            EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
     /**
      * 跳转到activity 不带参数
+     *
      * @param cls
      */
     protected void skipTo(Class<?> cls) {
         Intent intent = new Intent(this, cls);
         this.startActivity(intent);
     }
+
 }

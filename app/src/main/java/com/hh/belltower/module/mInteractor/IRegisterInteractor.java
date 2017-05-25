@@ -1,4 +1,4 @@
-package com.hh.belltower.module.entrance.mInteractor;
+package com.hh.belltower.module.mInteractor;
 
 import android.app.Activity;
 

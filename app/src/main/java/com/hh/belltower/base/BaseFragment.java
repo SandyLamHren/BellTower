@@ -13,6 +13,10 @@ import android.widget.Toast;
 
 import com.haoren.belltower.R;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 
@@ -47,9 +51,10 @@ public abstract class BaseFragment extends Fragment {
             ButterKnife.bind(this, mView);
             //loadDialog
         }
+        EventBus.getDefault().register(this);
         //init data
-        initData();
         handArguments(getArguments());
+        initData();
         return mView;
     }
 
@@ -91,4 +96,13 @@ public abstract class BaseFragment extends Fragment {
 
     public abstract void initData();
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void finish(String msg){
+    }
 }

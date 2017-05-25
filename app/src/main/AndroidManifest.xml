@@ -45,6 +45,11 @@
         <activity
             android:name="com.hh.belltower.ui.activity.ToolsActivity"
             android:launchMode="singleTask" />
+        <!-- 新闻详情 -->
+        <activity
+            android:name="com.hh.belltower.ui.activity.NewsDetailActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemeMain"/>
     </application>
 
 </manifest>

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -53,26 +52,31 @@ public abstract class BaseFullActivity extends AppCompatActivity {
         mActivity = this;
         ButterKnife.bind(this);
         initToolBar();
+        handIntent(getIntent());
         init();
         initSoftInput();
     }
 
     /**
+     * 处理数据传递
+     */
+    protected void handIntent(Intent intent) {
+
+    }
+    /**
      * 点击外层 让edittext 失去焦点
      */
     private void initSoftInput() {
-        mRoot.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                mRoot.setFocusable(true);
-                mRoot.setFocusableInTouchMode(true);
+        mRoot.setOnTouchListener((v, event) -> {
+            mRoot.setFocusable(true);
+            mRoot.setFocusableInTouchMode(true);
 
-                mRoot.requestFocus();
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null) {
-                    imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
-                }
-                return false;
+            mRoot.requestFocus();
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
             }
+            return false;
         });
     }
 

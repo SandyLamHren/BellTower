@@ -1,8 +1,8 @@
-package com.hh.belltower.module.entrance.mPresenter;
+package com.hh.belltower.module.mPresenter;
 
 import com.hh.belltower.constants.Constants;
-import com.hh.belltower.module.entrance.mInteractor.IRegisterInteractor;
-import com.hh.belltower.module.entrance.mModel.RegisterModel;
+import com.hh.belltower.module.mInteractor.IRegisterInteractor;
+import com.hh.belltower.module.mModel.RegisterModel;
 import com.hh.belltower.util.StringUtil;
 
 /**

@@ -9,7 +9,7 @@ public class Constants {
     /**
      * Intent Bundle --Key
      */
-    public static final String KEY_NEWS_ID = "news_id";
+    public static final String KEY_NEWS = "news";
 
     public static final String KEY_INDEX = "key_index";
 

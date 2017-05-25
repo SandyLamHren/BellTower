@@ -8,8 +8,8 @@ import android.widget.LinearLayout;
 
 import com.haoren.belltower.R;
 import com.hh.belltower.base.BaseFragment;
-import com.hh.belltower.module.entrance.mInteractor.ILoginInteractor;
-import com.hh.belltower.module.entrance.mPresenter.LoginPresenter;
+import com.hh.belltower.module.mInteractor.ILoginInteractor;
+import com.hh.belltower.module.mPresenter.LoginPresenter;
 import com.hh.belltower.ui.activity.MainActivity;
 
 import butterknife.BindView;

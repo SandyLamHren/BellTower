@@ -1,11 +1,11 @@
-package com.hh.belltower.module.entrance.mModel;
+package com.hh.belltower.module.mModel;
 
 import android.app.Activity;
 
 import com.alibaba.fastjson.JSON;
 import com.hh.belltower.bean.UserBean;
 import com.hh.belltower.constants.Global;
-import com.hh.belltower.module.entrance.mInteractor.ILoginInteractor;
+import com.hh.belltower.module.mInteractor.ILoginInteractor;
 import com.hh.belltower.retrofit.base.BaseResponse;
 import com.hh.belltower.retrofit.base.MyHttpUtil;
 import com.hh.belltower.retrofit.base.MyRetrofit;

@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import com.haoren.belltower.R;
 import com.hh.belltower.base.BaseFragment;
-import com.hh.belltower.module.entrance.mInteractor.IRegisterInteractor;
-import com.hh.belltower.module.entrance.mPresenter.RegisterPresenter;
+import com.hh.belltower.module.mInteractor.IRegisterInteractor;
+import com.hh.belltower.module.mPresenter.RegisterPresenter;
 import com.hh.belltower.ui.activity.MainActivity;
 
 import butterknife.BindView;

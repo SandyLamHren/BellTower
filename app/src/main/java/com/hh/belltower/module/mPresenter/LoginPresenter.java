@@ -1,7 +1,7 @@
-package com.hh.belltower.module.entrance.mPresenter;
+package com.hh.belltower.module.mPresenter;
 
-import com.hh.belltower.module.entrance.mInteractor.ILoginInteractor;
-import com.hh.belltower.module.entrance.mModel.LoginModel;
+import com.hh.belltower.module.mInteractor.ILoginInteractor;
+import com.hh.belltower.module.mModel.LoginModel;
 import com.hh.belltower.util.StringUtil;
 
 /**
